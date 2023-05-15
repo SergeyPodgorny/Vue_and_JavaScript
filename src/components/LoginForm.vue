@@ -37,12 +37,13 @@ export default {
         }
     },
     methods:{
-        async login(){
-            await axios.post(AUTHORIZATION_API_URL,
+        login(){
+            axios.post(AUTHORIZATION_API_URL,
             {
                 username:this.username,
                 password:this.password
             })
+            .then((response)=>console.log(response.data.token))
         }
     }
 }
