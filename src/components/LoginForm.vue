@@ -37,13 +37,20 @@ export default {
         }
     },
     methods:{
-        login(){
+        async login(){
             axios.post(AUTHORIZATION_API_URL,
             {
                 username:this.username,
                 password:this.password
             })
-            .then((response)=>console.log(response.data.token))
+            .then((response)=>{
+                if (response.status>= 400 && response.status < 600){
+                    throw new Error("Bad response")
+                }
+                else{
+                    console.log(response.data.token)
+                }
+            })
         }
     }
 }
