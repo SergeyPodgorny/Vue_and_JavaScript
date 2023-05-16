@@ -38,13 +38,13 @@ export default {
     },
     methods:{
         async login(){
-            axios.post(AUTHORIZATION_API_URL,
+            await axios.post(AUTHORIZATION_API_URL,
             {
                 username:this.username,
                 password:this.password
             })
             .then((response)=>{
-                if (response.status>= 400 && response.status < 600){
+                if (response.status>= 400 && response.status <= 600){
                     throw new Error("Bad response")
                 }
                 else{
