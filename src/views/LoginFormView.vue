@@ -7,7 +7,7 @@
                 <input
                 class="form-control"
                 type="username"
-                v-model="username"
+                v-model=username
                 placeholder="Enter Username"/>
             </div>
 
@@ -15,12 +15,8 @@
                 <input
                 class="form-control"
                 type="password"
-                v-model="password"
+                v-model=password
                 placeholder="Enter Password">
-           </div>
-
-           <div>
-            {{ this.$store.getters.getAccessToken }}
            </div>
 
            <button type="submit" id="login_button" v-on:click="this.$store.dispatch('login')">Submit</button>
@@ -31,12 +27,27 @@
 
 export default {
     name:"LoginForm",
-    data(){
-        return{
-            username:"",
-            password:""
+    computed:{
+        username:{
+            get(){
+                return this.$store.state.username
+            },
+            set(newUsername){
+                this.$store.commit('setUsername', newUsername)
+                console.log(this.$store.getters.getUsername)    
+            }        
+        },
+        password:{
+            get(){
+                return this.$store.state.password
+            },    
+            set(newPassword){
+                this.$store.commit('setPassword', newPassword)
+                console.log(this.$store.getters.getPassword)    
+            } 
         }
     }
+
 }
 
 </script>

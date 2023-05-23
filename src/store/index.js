@@ -5,16 +5,30 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    accessToken: ''
+    accessToken: '',
+    username:'',
+    password:''
   },
   getters: {
     getAccessToken(state){
         return state.accessToken
+    },
+    getUsername(state){
+      return state.username
+    },
+    getPassword(state){
+      return state.password
     }
   },
   mutations: {
     saveAccessToken(state,accessToken){
         state.accessToken = accessToken
+    },
+    setUsername(state,username){
+      state.username = username
+    },
+    setPassword(state,password){
+      state.password = password
     }
   },
   actions: {
@@ -33,7 +47,8 @@ export default createStore({
                     ctx.commit('saveAccessToken', response.data.token)
                 }
             })
-    }
+    },
+    
 
   },
   modules: {
