@@ -7,7 +7,8 @@ export default createStore({
   state: {
     accessToken: '',
     username:'',
-    password:''
+    password:'',
+    authenticated: false
   },
   getters: {
     getAccessToken(state){
@@ -18,6 +19,9 @@ export default createStore({
     },
     getPassword(state){
       return state.password
+    },
+    isAuthenticated(state){
+      return state.authenticated
     }
   },
   mutations: {
@@ -29,6 +33,9 @@ export default createStore({
     },
     setPassword(state,password){
       state.password = password
+    },
+    setAuthentication(state, authenticated){
+      state.authenticated = authenticated
     }
   },
   actions: {
@@ -46,6 +53,7 @@ export default createStore({
                 }
                 else{
                     commit('saveAccessToken', response.data.token)
+                    commit('setAuthentication', true)
                 }
             })
     },
