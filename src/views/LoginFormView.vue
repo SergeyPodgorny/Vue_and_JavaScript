@@ -6,6 +6,7 @@
             <div class="input">
                 <input
                 class="form-control"
+                id="username_field"
                 type="username"
                 v-model=username
                 placeholder="Enter Username"/>
@@ -14,6 +15,7 @@
            <div class="input" >
                 <input
                 class="form-control"
+                id="password_field"
                 type="password"
                 v-model=password
                 placeholder="Enter Password">
