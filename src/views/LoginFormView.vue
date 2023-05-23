@@ -36,7 +36,6 @@ export default {
             },
             set(newUsername){
                 this.$store.commit('setUsername', newUsername)
-                console.log(this.$store.getters.getUsername)    
             }        
         },
         password:{
@@ -45,7 +44,6 @@ export default {
             },    
             set(newPassword){
                 this.$store.commit('setPassword', newPassword)
-                console.log(this.$store.getters.getPassword)    
             } 
         }
     }

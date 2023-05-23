@@ -33,11 +33,11 @@ export default createStore({
   },
   actions: {
 
-    async login({ commit }){
+    async login({ commit, state }){
         await axios.post(AUTHORIZATION_API_URL,
             {
-                username:'admin',
-                password:'password'
+                username:state.username,
+                password:state.password
                 
             })
             .then((response)=>{
