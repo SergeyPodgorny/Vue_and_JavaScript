@@ -33,18 +33,19 @@ export default createStore({
   },
   actions: {
 
-    async login(ctx){
+    async login({ commit }){
         await axios.post(AUTHORIZATION_API_URL,
             {
                 username:'admin',
                 password:'password'
+                
             })
             .then((response)=>{
                 if (response.status>= 400 && response.status <= 600){
                     throw new Error("Bad response")
                 }
                 else{
-                    ctx.commit('saveAccessToken', response.data.token)
+                    commit('saveAccessToken', response.data.token)
                 }
             })
     },
