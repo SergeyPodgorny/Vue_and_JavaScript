@@ -3,7 +3,7 @@ import LoginFormView from "../views/LoginFormView.vue";
 
 
 const routes = [
-    { path: '/', component: LoginFormView },
+    { path: '/', component: LoginFormView, alias: '/' },
   ]
 
   const router = createRouter({
