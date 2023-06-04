@@ -1,11 +1,15 @@
-import Vue from'vue'
-import Router from 'vue-router'
+import { createRouter,createWebHashHistory } from "vue-router";
 import LoginFormView from "../views/LoginFormView.vue";
 
+
 const routes = [
-    {
-    path: "/",
-    name: "login",
-    component: LoginFormView,
-    }
-]
+    { path: '/', component: LoginFormView },
+  ]
+
+  const router = createRouter({
+    history: createWebHashHistory(),
+    routes,
+  })
+
+  export default router
+
