@@ -1,5 +1,5 @@
 import { createRouter,createWebHashHistory } from "vue-router";
-import LoginFormView from "../views/LoginFormView.vue";
+import LoginFormView from "../views/LoginView.vue";
 
 
 const routes = [
