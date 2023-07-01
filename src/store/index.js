@@ -9,7 +9,8 @@ export default createStore({
     username:'',
     password:'',
     authenticated: false,
-    apiErrorOccured: false
+    apiErrorOccured: false,
+    apiErrorMessage:''
   },
   getters: {
     getAccessToken(state){
@@ -26,6 +27,9 @@ export default createStore({
     },
     isApiErrorOccured(state){
       return state.apiErrorOccured
+    },
+    getApiErrorMessage(state){
+      return state.apiErrorMessage
     }
   },
   mutations: {
@@ -43,6 +47,9 @@ export default createStore({
     },
     setApiErrorOccurence(state, isApiErrorOccured){
       state.apiErrorOccured = isApiErrorOccured
+    },
+    setApiErrorMesage(state,apiErrorMessage){
+      state.apiErrorMessage = apiErrorMessage
     }
   },
   actions: {
@@ -58,15 +65,16 @@ export default createStore({
             .then((response)=>{
               commit('saveAccessToken', response.data.token)
               commit('setAuthentication', true)
+              commit('setApiErrorOccurence', false)
             }).catch(function (error) {
               if (error.response) {
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-                console.log(error.response.data.message)
+                console.log(error.response.data)
+                console.log(error.response.status)
+                console.log(error.response.headers)
                 commit('setApiErrorOccurence', true)
+                commit('setApiErrorMesage', error.response.data.message)
               } else if (error.request) {
                 // The request was made but no response was received
                 // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -74,9 +82,9 @@ export default createStore({
                 console.log(error.request);
               } else {
                 // Something happened in setting up the request that triggered an Error
-                console.log('Error', error.message);
+                console.log('Error', error.message)
               }
-              console.log(error.config);
+              console.log(error.config)
             });
     },
     
