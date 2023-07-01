@@ -66,6 +66,7 @@ export default createStore({
               commit('saveAccessToken', response.data.token)
               commit('setAuthentication', true)
               commit('setApiErrorOccurence', false)
+              commit('setApiErrorMesage', ' ')
             }).catch(function (error) {
               if (error.response) {
                 // The request was made and the server responded with a status code
