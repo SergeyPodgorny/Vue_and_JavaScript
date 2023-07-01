@@ -21,6 +21,7 @@
                 placeholder="Enter Password">
            </div>
 
+           <p v-if="this.$store.getters.isApiErrorOccured">error</p>
            <button type="submit" id="login_button" v-on:click="this.$store.dispatch('login')">Submit</button>
     </div>
 </template>
