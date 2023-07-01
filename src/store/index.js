@@ -8,7 +8,8 @@ export default createStore({
     accessToken: '',
     username:'',
     password:'',
-    authenticated: false
+    authenticated: false,
+    apiErrorOccured: false
   },
   getters: {
     getAccessToken(state){
@@ -22,6 +23,9 @@ export default createStore({
     },
     isAuthenticated(state){
       return state.authenticated
+    },
+    isApiErrorOccured(state){
+      return state.apiErrorOccured
     }
   },
   mutations: {
@@ -36,26 +40,44 @@ export default createStore({
     },
     setAuthentication(state, authenticated){
       state.authenticated = authenticated
+    },
+    setApiErrorOccurence(state, isApiErrorOccured){
+      state.apiErrorOccured = isApiErrorOccured
     }
   },
   actions: {
 
-    async login({ commit, state }){
-        await axios.post(AUTHORIZATION_API_URL,
+    async login({ commit, state }){         
+
+          await axios.post(AUTHORIZATION_API_URL,
             {
                 username:state.username,
                 password:state.password
                 
             })
             .then((response)=>{
-                if (response.status>= 400 && response.status <= 600){
-                    throw new Error("Bad response")
-                }
-                else{
-                    commit('saveAccessToken', response.data.token)
-                    commit('setAuthentication', true)
-                }
-            })
+              commit('saveAccessToken', response.data.token)
+              commit('setAuthentication', true)
+            }).catch(function (error) {
+              if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+                console.log(error.response.data.message)
+                commit('setApiErrorOccurence', true)
+              } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                console.log(error.request);
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+              }
+              console.log(error.config);
+            });
     },
     
 
